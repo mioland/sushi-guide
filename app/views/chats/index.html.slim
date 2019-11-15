@@ -1,0 +1,5 @@
+h1 メッセージ履歴ユーザ
+p= link_to 'ユーザ検索','/chats/select_user'
+ul
+  - @chat_users.each do |chat_user|
+    li= link_to chat_user.relation.name , "/chats/#{chat_user.relation.id}" 

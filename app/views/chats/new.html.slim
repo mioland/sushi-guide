@@ -1,0 +1,12 @@
+h1 メッセージ
+ul
+  - @chats.each do |chat|
+    li= "#{chat.sender.name}: #{chat.chat}"
+
+=form_with model: chat.new,url: "/chats/#{params[:id]}" do |f|
+  =f.label 'メッセージ'
+  br
+  =f.text_area :chat
+  br
+  br
+  =f.submit "送信"
