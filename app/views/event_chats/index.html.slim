@@ -1,12 +1,15 @@
-h1 イベントメッセージ
-ul
+h2.page-title イベントメッセージ
+ul.msg-list
   - @event_chats.each do |event_chat|
-    li= "#{event_chat.user.name}: #{event_chat.chat}"
-    =link_to "コメント",:controller=>'event_chat_reps',:action=>'new',event_chat_id: event_chat.id
-
-= form_with model:@event_chat,local:true do |f|
+    li
+      |
+        #{event_msg.user.name}: <br>
+        <span class="msg-content">#{event_msg.msg}</span>
+    =link_to "コメント",:controller=>'event_msg_reps',:action=>'new',event_msg_id: event_msg.id
+= form_with model:@event_msg,local:true do |f|
     .form-group
       = f.hidden_field :event_id, :value=>@event_id
       = f.label 'メッセージ入力'
-      = f.text_area :chat
+      br
+      = f.text_area :msg,{class:"msg"}
     = f.submit "メッセージを送信" 

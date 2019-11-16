@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'events#index'  
+  get 'chat/show'
+  root 'home#index'  
   #get '/users',to:'users#index'
   #get '/users/new',to:'users#new'
   #post '/users',to:'users#create'
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
 
   get '/chats/:id',to:'chats#new'
   post 'chats/:id',to:'chats#create'
+
+  get '/home',to:'home#index'
  resources :events
 
 end

@@ -5,7 +5,10 @@ class ChatsController < ApplicationController
     end
   
     def select_user
-  
+        if request.referer&.include?("/msgs/select_user")
+        else
+          session[:query_users]=nil
+        end
     end
   
     def query_user

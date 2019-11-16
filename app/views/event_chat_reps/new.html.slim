@@ -1,11 +1,15 @@
-h1 コメント
-ul
+h2.page-title コメント
+ul.msg-list
   - @event_chat_reps.each do |event_chat_rep|
-    li= "#{event_chat_rep.user.name}: #{event_chat_rep.chat}"
+    li
+      |
+        #{event_msg_rep.user.name}: <br>
+        <span class="msg-content">#{event_msg_rep.msg}</span>
 
 = form_with model:@event_chat_rep,local:true do |f|
     .form-group
       = f.hidden_field :event_chat_id, :value=>@event_chat_id
       = f.label 'コメント入力'
-      = f.text_area :chat
-    = f.submit "コメントを送信" 
+      br
+      = f.text_area :msg,{class:"msg"}
+    = f.submit "コメントを送信"
