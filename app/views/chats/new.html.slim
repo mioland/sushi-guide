@@ -1,14 +1,21 @@
 ul.chat-list#chat-index
-
   - @chats.each do |chat|
-    li
-      |
-        #{chat.sender.name}:<br>
-        <span class="chat-content">#{chat.chat}</span>
+    -if chat.photo_url.url
+      li
+        |
+          #{chat.sender.name}:<br>
+          <span class="chat-content">#{chat.chat}<br><img src="#{chat.photo_url.url}"></span>
+    - else
+      li
+        |
+          #{chat.sender.name}:<br>
+          <span class="chat-content">#{chat.chat}</span>
 
-=form_with model: Chat.new,url: "/chats/#{params[:id]}" do |f|
+=form_with model: chat.new,url: "/chats/#{params[:id]}" do |f|
   =f.label 'メッセージ'
   br
   =f.text_area :chat,{class:"chat"}
   br
-  =f.submit "送信" 
+  =f.label "画像"
+  =f.file_field :photo_url ,{id:"file_input"}
+  =f.submit "送信",{id:"chat-submit"} 

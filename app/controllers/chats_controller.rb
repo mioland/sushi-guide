@@ -21,7 +21,7 @@ class ChatsController < ApplicationController
     def new
       @chat = Chat.new 
       cid = current_user.id
-      @chats = Chat.where("(sender_id = #{params[:id]} and reciever_id= #{cid}) or (sender_id = #{cid} and reciever_id = #{params[:id]})")
+      @chats = Chat.where("(sender_id = #{params[:id].split("&")[0]} and reciever_id= #{cid}) or (sender_id = #{cid} and reciever_id = #{params[:id].split("&")[0]})")
     end
   
     def create
