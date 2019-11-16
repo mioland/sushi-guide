@@ -1,6 +1,6 @@
-class MsgChannel < ApplicationCable::Channel
+class ChatChannel < ApplicationCable::Channel
     def subscribed
-       stream_from "msg_channel"
+       stream_from "chat_channel"
     end
   
     def unsubscribed
@@ -8,6 +8,6 @@ class MsgChannel < ApplicationCable::Channel
     end
   
     def post(data)
-      ActionCable.server.broadcast('msg_channel',data)
+      ActionCable.server.broadcast('chat_channel',data)
     end
 end

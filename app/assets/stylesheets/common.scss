@@ -29,6 +29,10 @@ body,p,h1,h2,h3,dl{
     height:30px;
   
   }
+  input[type="password"]{
+    width:300px;
+    height:30px;
+  }
   input.submit{
     height:60px;
     font-size:30px;
@@ -122,7 +126,7 @@ body,p,h1,h2,h3,dl{
     .btn-min:hover{
       opacity: 0.8;
     }
-    .msg{
+    .chat{
       width:100%;
       border-radius: 10px;
       height:3.5em;
@@ -133,7 +137,7 @@ body,p,h1,h2,h3,dl{
       width:300px;
       margin:0 auto;
     }
-    .msg-user-list{
+    .chat-user-list{
       padding:0;
       margin:0 auto;
       display:block;
@@ -153,13 +157,13 @@ body,p,h1,h2,h3,dl{
         }
       }
     }
-    .msg-list{
+    .chat-list{
       li{
         list-style-type: none;
         padding:10px;
       }
     }
-    .msg-content{
+    .chat-content{
       display:block;
       border:1px solid #eee;
       width:95%;
@@ -269,4 +273,33 @@ nav{
       text-align: center;
       border-bottom:1px solid #333;
     }
-  } 
+}
+.acc{
+  cursor: pointer;
+  display:block;
+
+  .area{
+    border-bottom:1px solid #aaa;
+    text-align: center;
+  }
+  li{
+    list-style-type: none;
+    padding:5px;
+    a{
+      text-decoration: none;
+      transition: 0.3s;
+      color:skyblue;
+      display:block;
+      padding:10px;
+      text-align: center;
+      &:hover{
+        color:#fff;
+        background-color:#666;
+      }
+    }
+  }
+  ul{
+    display:none;
+    padding:0;
+  }
+} 

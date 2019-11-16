@@ -8,9 +8,12 @@ class UsersController < ApplicationController
     end
   
     def create
-      user = User.new(user_params)
-      user.save!
-      redirect_to users_path
+        @user = User.new(user_params)
+        if @user.save
+          redirect_to root_path
+        else
+          render 'new'
+        end
     end
   
     def edit
@@ -20,8 +23,8 @@ class UsersController < ApplicationController
     def update
       user = User.find(params[:id])
       if user.update_attributes(user_params)
-        render 'edit'
-      else
+        render users_path
+    else
         render 'edit'
       end
     end
@@ -32,6 +35,6 @@ class UsersController < ApplicationController
     end
   
     def user_params
-      params.require(:user).permit(:name,:nick_name,:avatar_path)
+        params.require(:user).permit(:name,:email,:password,:password_confirmation,:nick_name,:avatar_path)
     end
 end

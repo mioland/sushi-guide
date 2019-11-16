@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_141037) do
+ActiveRecord::Schema.define(version: 2019_11_16_055611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
+    t.string "area_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "chats", force: :cascade do |t|
     t.integer "sender_id"
@@ -60,6 +66,14 @@ ActiveRecord::Schema.define(version: 2019_11_15_141037) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "prefs", force: :cascade do |t|
+    t.string "pref_id"
+    t.string "pref_name"
+    t.integer "area_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stores", force: :cascade do |t|
     t.integer "event_id"
     t.integer "event_app_id"
@@ -75,6 +89,9 @@ ActiveRecord::Schema.define(version: 2019_11_15_141037) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar_path"
+    t.string "password_digest"
+    t.string "email"
+    t.string "prof"
   end
 
 end
