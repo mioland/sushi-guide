@@ -1,4 +1,4 @@
-h2.page-title= @event.event_name
+h2.page-title= @store.store_name
 - if @event.photo_url1?
     p.title-img=image_tag @event.photo_url1.url,:class => 'img-thum-l'
 - else
@@ -31,21 +31,3 @@ table.event-show
     td
       - @event.event_apps.each do |event_app|
           span.event-app=link_to event_app.user.name,'#'
-
-
-
-#map
-br
-- if current_user==nil || (current_user.id != @event.user.id and !is_apply_event?)
-  = form_with model:@event,url:'/event_apps',method: :post,local:true, class: 'event-detail' do |f|
-    = f.hidden_field :event_id, :value=>@event.id
-    = f.submit '応募する' , {class: "submit"}
-javascript:
-  var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      });
-  }
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQiYsQFCCFiA9mv3__Xqe5VkvhyiCEfds&callback=initMap" async defer></script>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'chat/show'
-  root 'home#index'  
+  root 'events#index' 
   #get '/users',to:'users#index'
   #get '/users/new',to:'users#new'
   #post '/users',to:'users#create'
