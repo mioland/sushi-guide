@@ -1,11 +1,21 @@
 h2.page-title イベントメッセージ
 ul.chat-list
   - @event_chats.each do |event_chat|
-    li
-      |
-        #{event_chat.user.name}: <br>
-        <span class="chat-content">#{event_chat.chat}</span>
-    =link_to "コメント",:controller=>'event_chat_reps',:action=>'new',event_chat_id: event_chat.id
+    =link_to url_for(:controller=>'event_chat_reps',:action=>'new',event_chat_id: event_chat.id),:class=>'chat-item-link' do 
+      li.chat-item
+        |
+          <div class="table-row">
+            <div class="chat-sender-img"><img src="#{event_chat.user.avatar_path}"></div>
+            <div class="chat-container">
+              #{event_chat.user.name}: <br>
+              <span class="chat-content">#{event_chat.chat}</span>
+            </div>
+          </div>
+        - if event_chat.event_chat_reps.present?
+          div.table-row
+            div.chat-rep-num= ""
+            div.chat-rep-num= "#{event_chat.event_chat_reps.length}件の返信"
+
 = form_with model:@event_chat,local:true do |f|
     .form-group
       = f.hidden_field :event_id, :value=>@event_id

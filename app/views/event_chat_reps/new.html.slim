@@ -1,15 +1,30 @@
 h2.page-title コメント
+div.chat-item
+  |
+    <div class="table-row">
+      <div class="chat-sender-img"><img src="#{@event_chat.user.avatar_path}"></div>
+      <div class="chat-container">
+        #{@event_chat.user.name}: <br>
+        <span class="chat-content">#{@event_chat.chat}</span>
+      </div>      
+    </div>
+
+hr
 ul.chat-list
   - @event_chat_reps.each do |event_chat_rep|
-    li
+    li.chat-item
       |
-        #{event_chat_rep.user.name}: <br>
-        <span class="chat-content">#{event_chat_rep.chat}</span>
-
+        <div class="table-row">
+          <div class="chat-sender-img"><img src="#{event_chat_rep.user.avatar_path}"></div>
+          <div class="chat-container">
+            #{event_chat_rep.user.name}: <br>
+            <span class="chat-content">#{event_chat_rep.chat}</span>
+          </div>
+        </div>
 = form_with model:@event_chat_rep,local:true do |f|
     .form-group
       = f.hidden_field :event_chat_id, :value=>@event_chat_id
-      = f.label 'コメント入力'
+      = f.label '返信を入力'
       br
       = f.text_area :chat,{class:"chat"}
-    = f.submit "コメントを送信"
+    = f.submit "送信" 

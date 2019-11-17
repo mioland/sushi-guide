@@ -1,15 +1,21 @@
 ul.chat-list#chat-index
   - @chats.each do |chat|
     -if chat.photo_url.url
-      li
+      li.chat-item
         |
-          #{chat.sender.name}:<br>
-          <span class="chat-content">#{chat.chat}<br><img src="#{chat.photo_url.url}"></span>
+          <div class="chat-sender-img"><img src="#{chat.sender.avatar_path}"></div>
+          <div class="chat-container">
+            #{chat.sender.nick_name}:<br>
+            <span class="chat-content">#{chat.chat}<br><img src="#{chat.photo_url.url}"></span>
+          </div>
     - else
-      li
+      li.chat-item
         |
-          #{chat.sender.name}:<br>
-          <span class="chat-content">#{chat.chat}</span>
+          <div class="chat-sender-img"><img src="#{chat.sender.avatar_path}"></div>
+          <div class="chat-container">
+            #{chat.sender.nick_name}:<br>
+            <span class="chat-content">#{chat.chat}</span>
+          </div>
 
 =form_with model: chat.new,url: "/chats/#{params[:id]}" do |f|
   =f.label 'メッセージ'

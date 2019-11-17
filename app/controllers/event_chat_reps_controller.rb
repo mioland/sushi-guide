@@ -5,6 +5,7 @@ class EventChatRepsController < ApplicationController
       @event_chat_reps = EventChatRep.where(event_chat_id: params[:event_chat_id])
       @event_chat_rep = EventChatRep.new
       @event_chat_id = params[:event_chat_id]
+      @event_chat = EventChat.find(@event_chat_id)
     end
   
     def create
