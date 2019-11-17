@@ -32,9 +32,11 @@ class EventsController < ApplicationController
         @events = Event.all
       end
     end
+
     def new
       @event =Event.new
     end
+
     def create
       begin
         ActiveRecord::Base.transaction{      
@@ -57,6 +59,7 @@ class EventsController < ApplicationController
       end
       redirect_to events_path
     end
+    
     def edit
       @event = Event.find(params[:id])
     end
@@ -64,10 +67,14 @@ class EventsController < ApplicationController
     def update
       event = Event.find(params[:id])
       event.update_attributes!(event_name:params[:event][:event_name],user_id: current_user.id , event_date: Time.zone.local(params[:event]["event_date(1i)"].to_i,params[:event]["event_date(2i)"].to_i,params[:event]["event_date(3i)"].to_i))
+    flash[:success] = '保存しました'
+    redirect_to edit_event_path(event)
     end
+
     def show
       @event = Event.find(params[:id])
     end
+
     def destory
     end
     private
