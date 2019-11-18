@@ -16,7 +16,7 @@ getLastDic = (url) ->
   result = url.split("/")
   return result[result.length - 1].split("&")[0]
 
-App.msg = App.cable.subscriptions.create { channel: "MsgChannel",room:getParam('room'), rec:getLastDic() },
+App.chat = App.cable.subscriptions.create { channel: "chatChannel",room:getParam('room'), rec:getLastDic() },
   connected: ->
     # Called when the subscription is ready for use on the server
 
@@ -29,18 +29,18 @@ App.msg = App.cable.subscriptions.create { channel: "MsgChannel",room:getParam('
     appendStr = ""
     if(data['message']['pic'])
       appendStr = """
-        <li class='msg-item'>
+        <li class='chat-item'>
           <div class='table-row'>
-            <div class="msg-sender-img">
+            <div class="chat-sender-img">
               <img src="#{data['message']['sender_pic']}">
             </div>
-            <div class="msg-container">
+            <div class="chat-container">
               #{data['message']['sender_name']}
               <br>
-              <span class="msg-content">
-                #{data['message']['msg']}
+              <span class="chat-content">
+                #{data['message']['chat']}
                 <br>
-                <span class="msg-img"><img src="#{data['message']['pic']}"></span>
+                <span class="chat-img"><img src="#{data['message']['pic']}"></span>
               </span>
             </div>
           </div>
@@ -48,25 +48,25 @@ App.msg = App.cable.subscriptions.create { channel: "MsgChannel",room:getParam('
       """
     else
       appendStr = """
-        <li class='msg-item'>
+        <li class='chat-item'>
           <div class='table-row'>
-            <div class="msg-sender-img">
+            <div class="chat-sender-img">
               <img src="#{data['message']['sender_pic']}">
             </div>
-            <div class="msg-container">
+            <div class="chat-container">
               <span>#{data['message']['sender_name']}</span>
               <br>
-              <span class="msg-content">#{data['message']['msg']}
+              <span class="chat-content">#{data['message']['chat']}
             </div>
           </div>
         </li>
       """ 
-    $('.msg-list').append appendStr
+    $('.chat-list').append appendStr
   speak:(message) ->
     @perform 'speak', message: message
 
-$(document).on 'click','#msg-submit',(event) ->
-    text = $.trim($(".msg").val())
+$(document).on 'click','#chat-submit',(event) ->
+    text = $.trim($(".chat").val())
     has_text = if text.length > 0 then true else false
     picture = $("#file_input")
     console.log("きてる？")
@@ -81,20 +81,20 @@ $(document).on 'click','#msg-submit',(event) ->
         reader.readAsDataURL picture.get(0).files[0]
         reader.addEventListener "loadend", ->
           message = {
-            msg: text,
+            chat: text,
             pic: reader.result
           }
           console.log(message)
-          console.log(App.msg)
-          App.msg.speak message 
+          console.log(App.chat)
+          App.chat.speak message 
       else
         message = {
-          msg: text
+          chat: text
           pic: ""
         }
         console.log(message)
-        console.log(App.msg)
-        App.msg.speak message
-    $(".msg").val('')
+        console.log(App.chat)
+        App.chat.speak message
+    $(".chat").val('')
     $("#file_input").val('')
     event.preventDefault()

@@ -1,20 +1,20 @@
-class EventMsgRepsController < ApplicationController
+class EventChatRepsController < ApplicationController
   before_action :authenticate_user!, only: %i[index create new]
 
   def new
-    @event_msg_reps = EventMsgRep.where(event_msg_id: params[:event_msg_id])
-    @event_msg_rep = EventMsgRep.new
-    @event_msg_id = params[:event_msg_id]
-    @event_msg = EventMsg.find(@event_msg_id)
+    @event_chat_reps = EventChatRep.where(event_chat_id: params[:event_chat_id])
+    @event_chat_rep = EventChatRep.new
+    @event_chat_id = params[:event_chat_id]
+    @event_chat = EventChat.find(@event_chat_id)
   end
 
   def create
-    event_msg_rep = EventMsgRep.new
-    event_msg_rep.msg = params[:event_msg_rep][:msg]
-    event_msg_rep.event_msg_id = params[:event_msg_rep][:event_msg_id]
-    event_msg_rep.photo_url = params[:event_msg_rep][:photo_url]
-    event_msg_rep.rep_user_id = current_user.id
-    event_msg_rep.save!
-    redirect_to event_msg_reps_new_path(event_msg_id: event_msg_rep.event_msg_id)
+    event_chat_rep = EventChatRep.new
+    event_chat_rep.chat = params[:event_chat_rep][:chat]
+    event_chat_rep.event_chat_id = params[:event_chat_rep][:event_chat_id]
+    event_chat_rep.photo_url = params[:event_chat_rep][:photo_url]
+    event_chat_rep.rep_user_id = current_user.id
+    event_chat_rep.save!
+    redirect_to event_chat_reps_new_path(event_chat_id: event_chat_rep.event_chat_id)
   end
 end

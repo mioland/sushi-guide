@@ -1,69 +1,69 @@
 .content
   p.back-to
-    | <a href="#{event_msgs_path}?event_id=#{@event_msg.event_id}"><i class="fas fa-arrow-left"></i></a>
+    | <a href="#{event_chats_path}?event_id=#{@event_chat.event_id}"><i class="fas fa-arrow-left"></i></a>
   .content-item
     h2.page-title コメント
-    .msg-item
+    .chat-item
             .table-row
-            -if @event_msg.photo_url.url
-              .msg-sender-img
-                - if @event_msg.user.avatar_path?
-                  = image_tag @event_msg.user.avatar_path.url
+            -if @event_chat.photo_url.url
+              .chat-sender-img
+                - if @event_chat.user.avatar_path?
+                  = image_tag @event_chat.user.avatar_path.url
                 - else
                   = image_tag 'no-image-human.png'
-              .msg-container
-                = @event_msg.user.nick_name
+              .chat-container
+                = @event_chat.user.nick_name
                 br
-                span.msg-content
-                  =@event_msg.msg
+                span.chat-content
+                  =@event_chat.chat
                   br
-                  span.msg-img = image_tag @event_msg.photo_url.url
+                  span.chat-img = image_tag @event_chat.photo_url.url
             -else
-              .msg-sender-img
-                - if @event_msg.user.avatar_path?
-                  = image_tag @event_msg.user.avatar_path.url
+              .chat-sender-img
+                - if @event_chat.user.avatar_path?
+                  = image_tag @event_chat.user.avatar_path.url
                 - else
                   = image_tag 'no-image-human.png'
-              .msg-container
-                = @event_msg.user.nick_name
+              .chat-container
+                = @event_chat.user.nick_name
                 br
-                span.msg-content = @event_msg.msg
+                span.chat-content = @event_chat.chat
 
     hr
-    ul.msg-list
-      - @event_msg_reps.each do |event_msg_rep|
-          li.msg-item
+    ul.chat-list
+      - @event_chat_reps.each do |event_chat_rep|
+          li.chat-item
             .table-row
-            -if event_msg_rep.photo_url.url
-              .msg-sender-img
-                - if event_msg_rep.user.avatar_path?
-                  = image_tag event_msg_rep.user.avatar_path.url
+            -if event_chat_rep.photo_url.url
+              .chat-sender-img
+                - if event_chat_rep.user.avatar_path?
+                  = image_tag event_chat_rep.user.avatar_path.url
                 - else
                   = image_tag 'no-image-human.png'
-              .msg-container
-                = event_msg_rep.user.nick_name
+              .chat-container
+                = event_chat_rep.user.nick_name
                 br
-                span.msg-content
-                  =event_msg_rep.msg
+                span.chat-content
+                  =event_chat_rep.chat
                   br
-                  span.msg-img = image_tag event_msg_rep.photo_url.url
+                  span.chat-img = image_tag event_chat_rep.photo_url.url
             -else
-              .msg-sender-img
-                - if event_msg_rep.user.avatar_path?
-                  = image_tag event_msg_rep.user.avatar_path.url
+              .chat-sender-img
+                - if event_chat_rep.user.avatar_path?
+                  = image_tag event_chat_rep.user.avatar_path.url
                 - else
                   = image_tag 'no-image-human.png'
-              .msg-container
-                = event_msg_rep.user.nick_name
+              .chat-container
+                = event_chat_rep.user.nick_name
                 br
-                span.msg-content = event_msg_rep.msg
+                span.chat-content = event_chat_rep.chat
 
-    = form_with model: @event_msg_rep, local: true do |f|
+    = form_with model: @event_chat_rep, local: true do |f|
         .form-group
-          = f.hidden_field :event_msg_id, value: @event_msg_id
+          = f.hidden_field :event_chat_id, value: @event_chat_id
           = f.label '返信を入力'
           br
-          = f.text_area :msg, class: 'msg'
+          = f.text_area :chat, class: 'chat'
           br
           =f.label '画像'
           =f.file_field :photo_url, id: 'file_input'

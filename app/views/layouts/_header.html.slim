@@ -19,7 +19,7 @@
                 li = link_to edit_user_path(current_user.id) do
                     = icon 'fas', 'user'
                     = ' プロフィール編集'
-                li = link_to msgs_index_path do
+                li = link_to chats_index_path do
                     = icon 'fas', 'envelope'
                     = ' メッセージ'
                 li = link_to destroy_user_session_path, method: :delete do

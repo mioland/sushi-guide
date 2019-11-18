@@ -1,4 +1,4 @@
-class MsgUser < ApplicationRecord
+class ChatUser < ApplicationRecord
   belongs_to :user
   belongs_to :relation, class_name: 'User'
   attr_accessor :room_id
