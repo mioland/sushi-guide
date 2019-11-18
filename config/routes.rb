@@ -1,41 +1,43 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   get 'chat/show'
-  root 'events#index' 
-  #get '/users',to:'users#index'
-  #get '/users/new',to:'users#new'
-  #post '/users',to:'users#create'
-  #get '/users/:id/edit',to:'users#edit'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'events#index'  
+@@ -9,9 +11,10 @@
   resources :users
   resources :areas
   resources :prefs
+  resources :events
 
-  get '/login', to:'sessions#new'
-  post '/login',to:'sessions#create'
+  #get '/login', to:'sessions#new'
+  #post '/login',to:'sessions#create'
   delete '/logout',to:'sessions#destroy'
 
   post '/event_apps',to:'event_apps#create'
   get '/event_apps',to:'event_apps#index'
-
-  get '/event_chats',to:'event_chats#index'
-  post '/event_chats',to:'event_chats#create'
-
+  get '/event_msgs',to:'event_msgs#index'
+  post '/event_msgs',to:'event_msgs#create'
   get '/stores',to:'stores#index'
   post '/stores',to:'stores#create'
   get '/stores/new',to:'stores#new'
   post '/stores/store_edit',to:'stores#store_edit'
   get 'stores/show/:id', to:'stores#show'
-  
-  get '/event_chat_reps/new',to:'event_chat_reps#new'
-  post '/event_chat_reps',to:'event_chat_reps#create'
-
-  get '/chats/index',to:'chats#index'
-  get '/chats/select_user',to:'chats#select_user'
-  post '/chats/select_user',to:'chats#query_user'
-
-  get '/chats/:id',to:'chats#new'
-  post 'chats/:id',to:'chats#create'
+  get '/event_msg_reps/new',to:'event_msg_reps#new'
+  post '/event_msg_reps',to:'event_msg_reps#create'
+  get '/msgs/index',to:'msgs#index'
+  get '/msgs/select_user',to:'msgs#select_user'
+  post '/msgs/select_user',to:'msgs#query_user'
+  get '/msgs/:id',to:'msgs#new'
+  post 'msgs/:id',to:'msgs#create'
 
   get '/home',to:'home#index'
- resources :events
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  end
+
+
+
 
 end

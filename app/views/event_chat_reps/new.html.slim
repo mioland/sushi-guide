@@ -1,30 +1,70 @@
-h2.page-title コメント
-div.chat-item
-  |
-    <div class="table-row">
-      <div class="chat-sender-img"><img src="#{@event_chat.user.avatar_path}"></div>
-      <div class="chat-container">
-        #{@event_chat.user.name}: <br>
-        <span class="chat-content">#{@event_chat.chat}</span>
-      </div>      
-    </div>
+.content
+  p.back-to
+    | <a href="#{event_msgs_path}?event_id=#{@event_msg.event_id}"><i class="fas fa-arrow-left"></i></a>
+  .content-item
+    h2.page-title コメント
+    .msg-item
+            .table-row
+            -if @event_msg.photo_url.url
+              .msg-sender-img
+                - if @event_msg.user.avatar_path?
+                  = image_tag @event_msg.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .msg-container
+                = @event_msg.user.nick_name
+                br
+                span.msg-content
+                  =@event_msg.msg
+                  br
+                  span.msg-img = image_tag @event_msg.photo_url.url
+            -else
+              .msg-sender-img
+                - if @event_msg.user.avatar_path?
+                  = image_tag @event_msg.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .msg-container
+                = @event_msg.user.nick_name
+                br
+                span.msg-content = @event_msg.msg
 
-hr
-ul.chat-list
-  - @event_chat_reps.each do |event_chat_rep|
-    li.chat-item
-      |
-        <div class="table-row">
-          <div class="chat-sender-img"><img src="#{event_chat_rep.user.avatar_path}"></div>
-          <div class="chat-container">
-            #{event_chat_rep.user.name}: <br>
-            <span class="chat-content">#{event_chat_rep.chat}</span>
-          </div>
-        </div>
-= form_with model:@event_chat_rep,local:true do |f|
-    .form-group
-      = f.hidden_field :event_chat_id, :value=>@event_chat_id
-      = f.label '返信を入力'
-      br
-      = f.text_area :chat,{class:"chat"}
-    = f.submit "送信" 
+    hr
+    ul.msg-list
+      - @event_msg_reps.each do |event_msg_rep|
+          li.msg-item
+            .table-row
+            -if event_msg_rep.photo_url.url
+              .msg-sender-img
+                - if event_msg_rep.user.avatar_path?
+                  = image_tag event_msg_rep.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .msg-container
+                = event_msg_rep.user.nick_name
+                br
+                span.msg-content
+                  =event_msg_rep.msg
+                  br
+                  span.msg-img = image_tag event_msg_rep.photo_url.url
+            -else
+              .msg-sender-img
+                - if event_msg_rep.user.avatar_path?
+                  = image_tag event_msg_rep.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .msg-container
+                = event_msg_rep.user.nick_name
+                br
+                span.msg-content = event_msg_rep.msg
+
+    = form_with model: @event_msg_rep, local: true do |f|
+        .form-group
+          = f.hidden_field :event_msg_id, value: @event_msg_id
+          = f.label '返信を入力'
+          br
+          = f.text_area :msg, class: 'msg'
+          br
+          =f.label '画像'
+          =f.file_field :photo_url, id: 'file_input'
+        = f.submit '送信'

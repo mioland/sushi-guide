@@ -1,25 +1,51 @@
-h2.page-title イベントメッセージ
-ul.chat-list
-  - @event_chats.each do |event_chat|
-    =link_to url_for(:controller=>'event_chat_reps',:action=>'new',event_chat_id: event_chat.id),:class=>'chat-item-link' do 
-      li.chat-item
-        |
-          <div class="table-row">
-            <div class="chat-sender-img"><img src="#{event_chat.user.avatar_path}"></div>
-            <div class="chat-container">
-              #{event_chat.user.name}: <br>
-              <span class="chat-content">#{event_chat.chat}</span>
-            </div>
-          </div>
-        - if event_chat.event_chat_reps.present?
-          div.table-row
-            div.chat-rep-num= ""
-            div.chat-rep-num= "#{event_chat.event_chat_reps.length}件の返信"
+.content
+  p.back-to
+    | <a href="#{event_app_path(@event_app)}"><i class="fas fa-arrow-left"></i></a>
+  .content-item
+    h2.page-title = "チャット　(#{@event.event_name})"
+    ul.msg-list
+      - @event_msgs.each do |event_msg|
+        =link_to url_for(controller: 'event_msg_reps', action: 'new', event_msg_id: event_msg.id), class: 'msg-item-link' do
+          li.msg-item
+            .table-row
+            -if event_msg.photo_url.url
+              .msg-sender-img
+                - if event_msg.user.avatar_path?
+                  = image_tag event_msg.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .msg-container
+                = event_msg.user.nick_name
+                br
+                span.msg-content
+                  =event_msg.msg
+                  br
+                  span.msg-img = image_tag event_msg.photo_url.url
+            -else
+              .msg-sender-img
+                - if event_msg.user.avatar_path?
+                  = image_tag event_msg.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .msg-container
+                = event_msg.user.nick_name
+                br
+                span.msg-content = event_msg.msg
+            - if event_msg.event_msg_reps.present?
+              .table-row
+                .msg-rep-num = ''
+                .msg-rep-num
+                  |
+                    <i class="far fa-comment"></i>
+                    #{event_msg.event_msg_reps.length}件の返信
 
-= form_with model:@event_chat,local:true do |f|
-    .form-group
-      = f.hidden_field :event_id, :value=>@event_id
-      = f.label 'メッセージ入力'
-      br
-      = f.text_area :chat,{class:"chat"}
-    = f.submit "メッセージを送信" 
+    = form_with model: @event_msg, local: true do |f|
+        .form-group
+          = f.hidden_field :event_id, value: @event_id
+          = f.label :msg
+          br
+          = f.text_area :msg, class: 'msg'
+          br
+          =f.label '画像'
+          =f.file_field :photo_url, id: 'file_input'
+        = f.submit 'メッセージを送信'

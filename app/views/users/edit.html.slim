@@ -1,30 +1,37 @@
-div.content
-  h2.page-title プロフィール編集
-  = render partial: 'layouts/flash', locals:{ user: @user}
-  = form_with model:@user,local:true,multipart:true do |f|
-    .form-group
-      = f.label "名前"
-      br
-      = f.text_field :name
-    .form-group
-      = f.label "ニックネーム"
-      br
-      = f.text_field :nick_name
-    .form-group
-      = f.label "email"
-      br
-      = f.text_field :email      
-    .form-group
-      = f.label "自己紹介"
-      br
-      = f.text_area :prof,:class => 'desc'
+.content
+  .content-item
+    h2.page-title プロフィール編集
+    = form_with model: @user, local: true, multipart: true do |f|
+      .form-group
+        = f.label '名前'
+        br
+        = f.text_field :name
+      .form-group
+        = f.label 'ニックネーム'
+        br
+        = f.text_field :nick_name
+      .form-group
+        = f.label 'email'
+        br
+        -if current_user.email == 'test@example.com'
+          = f.text_field :email, disabled: true
+        -else
+          = f.text_field :email
+      .form-group
+        = f.label '自己紹介'
+        br
+        = f.text_area :prof, class: 'desc'
 
-    .form-group
-      = f.label "プロフィール画像"
-      br
-      = image_tag @user.avatar_path.url if @user.avatar_path?
-      br
-      
-      br
-      = f.file_field :avatar_path
-    = f.submit "保存"
+      .form-group
+        = f.label 'プロフィール画像'
+        br
+        -if @user.avatar_path?
+          = image_tag @user.avatar_path.url, class: 'prev-img show' if @user.avatar_path?
+        -else
+          = image_tag '', class: 'prev-img hide'
+        br
+        br
+        = f.file_field :avatar_path, class: 'input-file'
+        = f.hidden_field :remove_img, value: false, class: 'remove-img'
+        = f.button '画像クリア', type: :button, class: 'img-clear'
+      = f.submit '保存'
