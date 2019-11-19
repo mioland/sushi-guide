@@ -1,5 +1,5 @@
 class CustomMailer < ApplicationMailer
-    default from: 'HandmadeGarden <yoroshikudouzobbb@gmail.com>'
+    default from: 'HandmadeGarden <kannrakugeiqaz@yahoo.co.jp>'
     # Subject can be set in your I18n file at config/locales/en.yml
     # with the following lookup:
     #
@@ -8,6 +8,6 @@ class CustomMailer < ApplicationMailer
     def test
       @greeting = 'Hi'
   
-      mail to: 'kannrakugeiqaz@yahoo.co.jp'
+      mail to: 'yoroshikudouzobbb@gmail.com'
     end
 end
