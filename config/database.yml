@@ -1,27 +1,43 @@
+# MySQL. Versions 5.1.10 and up are supported.
+#
+# Install the MySQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+#
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  port: 3306
 
 development:
   <<: *default
   database: sushi-guide_development
-  host: db
-  username: postgres
-  password:
+  username: <%= Rails.application.credentials.dig(:mysql_local, :database_user) %>
+  password: <%= Rails.application.credentials.dig(:mysql_local, :database_password) %>
+  host: <%= Rails.application.credentials.dig(:mysql_local, :database_host) %>
 
-
+# test:
+#   <<: *default
+#   database: sushi-guide_test
+#   username: <%= Rails.application.credentials.dig(:mysql_local, :database_user) %>
+#   password: <%= Rails.application.credentials.dig(:mysql_local, :database_password) %>
+#   host: <%= Rails.application.credentials.dig(:mysql_local, :database_host) %>
 test:
   <<: *default
-  database: sushi-guide_test
-  host: db
-  username: postgres
-  password:
-  
+  database: 
+  host: <%= ENV['DB_HOST'] %>
+  username: root
+  socket: /tmp/mysql.sock
+
 production:
   <<: *default
+  username: <%= Rails.application.credentials.dig(:db, :user) %>
+  password: <%= Rails.application.credentials.dig(:db, :password) %>
+  host: <%= Rails.application.credentials.dig(:db, :host) %>
   database: sushi-guide_production
-  username: sushi-guide
-  password: <%= ENV['SUSHI-GUIDE_DATABASE_PASSWORD'] %>

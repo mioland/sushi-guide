@@ -1,118 +1,58 @@
-version: 2
+version: 2.1
 jobs:
-  checkout_code:
+  Hello-World:
     docker:
-      - image: circleci/ruby:2.6.2-node-browsers
-    working_directory: ~/sushi-guide
+      - image: alpine
+    steps:
+      - run:
+          name: Hello World
+          command: |
+            echo 'Hello World!'
+            echo 'test'
+  I-Have-Code:    
+    docker:
+      - image: alpine:3.7
     steps:
       - checkout
-      - save_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - ~/sushi-guide
-  bundle_dependencies:
+      - run:
+          name: Code Has Arrived
+          command: |
+            ls -al
+            echo '^^^ That should look familiar'
+  Run-With-Node:
     docker:
-      - image: circleci/ruby:2.6.2-node-browsers
-    working_directory: ~/sushi-guide
+      - image: circleci/node:10-browsers
     steps:
-      - restore_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
-            - v1-bundle-{{ checksum "Gemfile.lock" }}
-            - v1-bundle
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          key: v1-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ~/sushi-guide/vendor/bundle
-
-  test:
+      - run:
+          name: Running in Unique Container
+          command: |
+            node -v
+  Now-Complete:
     docker:
-      - image: circleci/ruby:2.6.2-node
-        environment:
-          RAILS_ENV: test
-          DB_HOST: 127.0.0.1
-          DB_USERNAME: postgres
-          DB_PASSWORD: ""
-          SELENIUM_URL: http://127.0.0.1:4444/wd/hub
-      - image: circleci/postgres:11.2
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: sushi-guide_test
-      - image: selenium/standalone-chrome:3.141.59-dubnium
-        environment:
-          ports: 4444:4444
-    working_directory: ~/sushi-guide
+      - image: alpine:3.7
     steps:
-      - restore_cache:
-          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          key: v1-bundle-{{ checksum "Gemfile.lock" }}
-      - run: rm ./config/database.yml
-      - run: mv ./config/database.yml.org ./config/database.yml
-      - run: bundle --path vendor/bundle
-      - run: bundle exec rails db:create RAILS_ENV=test
-      - run: bundle exec rails db:schema:load
       - run:
-          name: Run tests
-          command: bundle exec rspec
-  deploy:
-    docker:
-      - image: circleci/python
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: install aws
+          name: Approval Complete
           command: |
-            sudo pip install awscli
-            aws --version
-      - run:
-          name: Install ecs-deploy
-          command: |
-            curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
-            sudo chmod +x /usr/bin/ecs-deploy
-      - run:
-          name: Install jq
-          command: sudo apt-get install -y jq
-      - run:
-          name: "Log in to AWS ECR"
-          command: eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
-      - run:
-          name: "Build & Push Docker Image"
-          command: |
-            docker build -t $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/sushi-guide_web:latest -t $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/sushi-guide_web:$CIRCLE_SHA1 -f Dockerfile.prod --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY .
-            docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/sushi-guide_web:$CIRCLE_SHA1
-      - run:
-          name: "DB Migrate"
-          command: |
-            aws ecs run-task \
-              --region ap-northeast-1 \
-              --cluster stu-cluster \
-              --task-definition stu-task \
-              --overrides file://ecs/run_task_db_migrate.json
-      - run:
-          name: "Sevice deploy"
-          environment:
-          command: |
-            ecs-deploy --cluster stu-cluster --service_name sushi-guide \
-              --region ap-northeast-1 --timeout 240 \
-              --image $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/sushi-guide_web:$CIRCLE_SHA1
+            echo 'Do work onece the approval has completed'
 workflows:
   version: 2
-  build_and_test_and_deploy:
+  Example_Workflow:
     jobs:
-      - checkout_code
-      - bundle_dependencies:
+      - Hello-World
+      - I-Have-Code:
           requires:
-            - checkout_code
-      - test:
+            - Hello-World
+      - Run-With-Node
+      - Run-With-Node:
           requires:
-            - bundle_dependencies
-      - deploy:
+            - Hello-World
+      - Hold-For-Approval
+      - Hold-For-Approval:
+          type: approval
           requires:
-            - test
-          filters:
-            branches:
-              only: master
+            - Run-With-Node
+            - I-Have-Code
+      - Now-Complete:
+          requires:
+            - Hold-For-Approval
