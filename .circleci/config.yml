@@ -1,58 +1,19 @@
 version: 2.1
 jobs:
-  Hello-World:
+  build:
     docker:
-      - image: alpine
+      - image: alpine:3.7
     steps:
       - run:
-          name: Hello World
+        name: The First Step
+        command: |
+          echo 'Hello World!'
+          echo 'test' 
+          name: The First Step
           command: |
             echo 'Hello World!'
             echo 'test'
-  I-Have-Code:    
-    docker:
-      - image: alpine:3.7
-    steps:
-      - checkout
-      - run:
-          name: Code Has Arrived
+          name: The First Step
           command: |
-            ls -al
-            echo '^^^ That should look familiar'
-  Run-With-Node:
-    docker:
-      - image: circleci/node:10-browsers
-    steps:
-      - run:
-          name: Running in Unique Container
-          command: |
-            node -v
-  Now-Complete:
-    docker:
-      - image: alpine:3.7
-    steps:
-      - run:
-          name: Approval Complete
-          command: |
-            echo 'Do work onece the approval has completed'
-workflows:
-  version: 2
-  Example_Workflow:
-    jobs:
-      - Hello-World
-      - I-Have-Code:
-          requires:
-            - Hello-World
-      - Run-With-Node
-      - Run-With-Node:
-          requires:
-            - Hello-World
-      - Hold-For-Approval
-      - Hold-For-Approval:
-          type: approval
-          requires:
-            - Run-With-Node
-            - I-Have-Code
-      - Now-Complete:
-          requires:
-            - Hold-For-Approval
+            echo 'Hello World!'
+            echo 'test'
