@@ -1,18 +1,24 @@
 version: '3'
 services:
   db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABESE: root
+    image: postgres:11.2
     ports:
-      - "3306:3306"
+      - '5432:5432'
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
   web:
     build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/app_name
+      - .:/sushi-guide
     ports:
       - "3000:3000"
-    links:
+    depends_on:
       - db
+      - chrome
+  chrome:
+    image: selenium/standalone-chrome:3.141.59-dubnium
+    ports:
+      - 4444:4444
+volumes:
+  postgresql-data:
