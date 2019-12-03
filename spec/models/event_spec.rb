@@ -89,7 +89,7 @@ describe Event do
     event.valid?
     expect(event.errors[:event_entrance_fee]).to include "は0以上の値にしてください"    
   end
-  
+
   it 'event_entrance_feeは少数は無効なこと' do
     event = FactoryBot.build(:event,event_entrance_fee: 1.2)
     event.valid?

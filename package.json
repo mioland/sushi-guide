@@ -1,5 +1,7 @@
 {
   "name": "sushi-guide",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "aws-sdk": "^2.581.0"
+  }
 }

@@ -1,5 +1,5 @@
 class CustomMailer < ApplicationMailer
-    default from: 'HandmadeGarden <kannrakugeiqaz@yahoo.co.jp>'
+    default from: 'Sushi-guide <no-reply@sushi-guide.work>'
     # Subject can be set in your I18n file at config/locales/en.yml
     # with the following lookup:
     #
