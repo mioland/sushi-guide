@@ -34,7 +34,7 @@ describe 'イベントのシステムテスト', type: :system do
         expect(page).to have_content('テストイベント')
       end
       it '登録成功のメッセージが表示されていること' do
-        expect(find('.flash-msg')).to have_content('イベントを登録しました')
+        expect(find('.flash-chat')).to have_content('イベントを登録しました')
       end
       it '参加イベント画面で作成したイベントが表示されていること' do
         visit event_apps_path
@@ -52,7 +52,7 @@ describe 'イベントのシステムテスト', type: :system do
         expect(page).to_not have_content('テストイベント')
       end
       it '登録成功のメッセージが表示されていること' do
-        expect(find('.flash-msg')).to have_content('イベントを登録しました')
+        expect(find('.flash-chat')).to have_content('イベントを登録しました')
       end
       it '参加イベント画面で作成したイベントが表示されていること' do
         visit event_apps_path
@@ -65,7 +65,7 @@ describe 'イベントのシステムテスト', type: :system do
       let(:selected_pref) { '選択してください' }
 
       it '不正な入力のエラーメッセージが表示されいること' do
-        expect(find('.flash-msg')).to have_content('不正な入力があります')
+        expect(find('.flash-chat')).to have_content('不正な入力があります')
       end
       it 'イベント名のバリデーションメッセージが表示されること' do
         expect(page).to have_content('イベント名を入力してください')
@@ -106,7 +106,7 @@ describe 'イベントのシステムテスト', type: :system do
         expect(current_path).to eq(event_path(edit_event))
       end
       it '登録成功のメッセージが表示されていること' do
-        expect(find('.flash-msg')).to have_content('保存しました')
+        expect(find('.flash-chat')).to have_content('保存しました')
       end
     end
 
@@ -115,7 +115,7 @@ describe 'イベントのシステムテスト', type: :system do
       let(:selected_pref) { 'A県' }
 
       it '不正な入力のエラーメッセージが表示されいること' do
-        expect(find('.flash-msg')).to have_content('不正な入力があります')
+        expect(find('.flash-chat')).to have_content('不正な入力があります')
       end
       it 'イベント名のバリデーションメッセージが表示されること' do
         expect(find('.form-error')).to have_content('イベント名を入力してください')
@@ -146,7 +146,7 @@ describe 'イベントのシステムテスト', type: :system do
     end
 
     it '削除メッセージが表示されること' do
-      expect(find('.flash-msg')).to have_content('イベントを削除しました')
+      expect(find('.flash-chat')).to have_content('イベントを削除しました')
     end
 
     it '削除したイベントが表示されないこと' do

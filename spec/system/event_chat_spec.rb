@@ -23,7 +23,7 @@ describe 'イベントメッセージのシステムテスト', type: :system do
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
       click_button 'ログイン'
-      visit event_msgs_path(event_id: event.id)
+      visit event_chats_path(event_id: event.id)
     end
 
     context '参加しているイベントの場合' do

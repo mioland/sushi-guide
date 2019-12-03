@@ -1,7 +1,7 @@
 FactoryBot.define do
-    factory :event_msg_rep do
-      msg { 'test message' }
-      association :event_msg
+    factory :event_chat_rep do
+      chat { 'test message' }
+      association :event_chat
       association :user
     end
 end

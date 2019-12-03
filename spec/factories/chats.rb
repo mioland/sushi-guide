@@ -1,6 +1,6 @@
 FactoryBot.define do
-    factory :msg do
-      msg { 'test message' }
+    factory :chat do
+      chat { 'test message' }
       association :sender
       association :reciever
     end

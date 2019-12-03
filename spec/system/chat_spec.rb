@@ -15,7 +15,7 @@ describe 'メッセージのシステムテスト', type: :system do
   describe 'メッセージ送信先ユーザ検索画面' do
     let(:login_user) { user1 }
     before do
-      visit msgs_select_user_path
+      visit chats_select_user_path
       fill_in '検索するユーザ名', with: 'ユーザ'
       click_button '検索'
     end
