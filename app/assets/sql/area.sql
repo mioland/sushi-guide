@@ -16,7 +16,7 @@ insert into prefs (id,pref_id,pref_name,area_id,created_at,updated_at) values (2
 insert into prefs (id,pref_id,pref_name,area_id,created_at,updated_at) values (3,'03','岩手県',2,NOW(),NOW());
 insert into prefs (id,pref_id,pref_name,area_id,created_at,updated_at) values (4,'04','宮城県',2,NOW(),NOW());
 insert into prefs (id,pref_id,pref_name,area_id,created_at,updated_at) values (5,'05','秋田県',2,NOW(),NOW());
-insert into prefs   (id,pref_id,pref_name,area_id,created_at,updated_at) values (6,'06','山形県',2,NOW(),NOW());
+insert into prefs (id,pref_id,pref_name,area_id,created_at,updated_at) values (6,'06','山形県',2,NOW(),NOW());
 insert into prefs (id,pref_id,pref_name,area_id,created_at,updated_at) values (7,'07','福島県',2,NOW(),NOW());
 
 -- 関東

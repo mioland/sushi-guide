@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'Userのシステムテスト', type: :system do
   let(:user1) { FactoryBot.create(:user, name: 'ユーザ1') }
-  let(:user2) { FactoryBot.create(:user, :admin_user, name: '管理者ユーザ') }
 
   describe 'ユーザ一覧の表示' do
     before do

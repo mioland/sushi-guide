@@ -38,18 +38,4 @@ describe 'ログインのシステムテスト', type: :system do
       expect(page).to have_content 'メールアドレスまたはパスワードが違います。'
     end
   end
-  describe '本人認証が完了していないユーザのログインの場合' do
-    before do
-      user = FactoryBot.create(:user, confirmed_at: nil)
-      fill_in 'user_email', with: user.email
-      fill_in 'user_password', with: user.password
-      click_button 'ログイン'
-    end
-    it 'ルートにリダイレクトされないこと' do
-      expect(current_path).to_not eq(root_path)
-    end
-    it '本人認証を促すメッセージが表示されること' do
-      expect(page).to have_content 'メールアドレスの本人確認が必要です。'
-    end
-  end
 end
