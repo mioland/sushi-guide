@@ -18,6 +18,6 @@ section.content
            p.title-img = image_tag event.photo_url1.url, class: 'img-thum'
         - else
            p.title-img = image_tag 'no-image.png', class: 'img-thum'
-        p = "開催日時: #{event.event_date.strftime('%Y年%m月%d日')}"
-        p = "主催者：　#{event.user.name}"
-        p = link_to '詳細', event_path(event)
+        p = "date: #{event.event_date.strftime('%Y/%m/%d')}"
+        p = "guide：　#{event.user.name}"
+        p = link_to 'details', event_path(event)

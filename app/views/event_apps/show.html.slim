@@ -7,12 +7,12 @@
         p.title-img = image_tag @event_app.event.photo_url1.url, class: 'img-thum'
     - else
         p.title-img = image_tag 'no-image.png', class: 'img-thum'
-    p = "開催日時: #{@event_app.event.event_date.strftime('%Y年%m月%d日')}"
-    p = "主催者：　#{@event_app.event.user.name}"
+    p = "date: #{@event_app.event.event_date.strftime('%Y/%m/%d')}"
+    p = "Guide：　#{@event_app.event.user.name}"
     ul.event-app-btn-list
       li = link_to event_chats_path(event_id: @event_app.event_id), class: 'btn-min' do
           = icon 'fas', 'comment'
-          = ' チャット'
+          = 'Chat'
       li = link_to event_app_stores_path(@event_app), class: 'btn-min' do
           = icon 'fas', 'store'
           = ' 出店情報'

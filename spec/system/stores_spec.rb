@@ -13,7 +13,7 @@ describe '出店情報画面のシステムテスト', type: :system do
       visit new_user_session_path
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
-      click_button 'ログイン'
+      click_button 'Login'
       visit new_event_app_store_path(event_app1.id)
     end
     context '自身の参加イベントの出店情報の場合' do
@@ -23,7 +23,7 @@ describe '出店情報画面のシステムテスト', type: :system do
           fill_in '出店名', with: 'テスト店舗'
           fill_in '出店情報', with: 'テストの店舗です'
           click_button '登録'
-          expect(page).to have_content('保存しました')
+          expect(page).to have_content('Saved')
         end
       end
       context '無効な入力をしたイベントの場合' do
@@ -48,13 +48,13 @@ describe '出店情報画面のシステムテスト', type: :system do
       visit new_user_session_path
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
-      click_button 'ログイン'
+      click_button 'Login'
       visit edit_event_app_store_path(event_app1.id, store.id)
     end
     context '有効な入力をした場合' do
       it '登録成功のメッセージが表示されること' do
         click_button '登録'
-        expect(page).to have_content('保存しました')
+        expect(page).to have_content('Saved')
       end
     end
     context '無効な入力した場合' do

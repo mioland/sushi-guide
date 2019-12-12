@@ -8,7 +8,7 @@ describe 'Userのシステムテスト', type: :system do
       visit new_user_session_path
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
-      click_button 'ログイン'
+      click_button 'Login'
       visit users_path
     end
     context '一般ユーザの場合' do

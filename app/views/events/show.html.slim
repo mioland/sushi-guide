@@ -8,28 +8,28 @@
     br
     table.event-show
       tr
-        th 開催日時
+        th date
         td = I18n.l @event.event_date, format: :full_date
       tr
-        th 主催者
+        th guide
         td = link_to @event.user.nick_name, controller: 'users', action: 'show', id: @event.user
       tr
-        th 開催場所
+        th place
         td#address = "#{@event.pref.pref_name} #{@event.city} #{@event.place_detail}"
       tr
-        th 出店募集期間
-        td = "#{@event.event_recruit_start_date.strftime('%Y年%m月%d日')} 〜 #{@event.event_recruit_end_date.strftime('%Y年%m月%d日')}"
+        th reservation period
+        td = "#{@event.event_recruit_start_date.strftime('%Y/%m/%d')} 〜 #{@event.event_recruit_end_date.strftime('%Y/%m/%d')}"
       tr
-        th 開催概要
+        th overview
         td = @event.event_detail
       tr
-        th 募集人数
+        th Possible number of people
         td = @event.event_recruit_number
       tr
-        th 参加費
+        th price($)
         td = @event.event_entrance_fee
       tr
-        th 出店者
+        th guide
         td
           - @event.event_apps.each do |event_app|
               -if event_app.stores.present?
@@ -43,7 +43,7 @@
     - if current_user.nil? || (current_user.id != @event.user.id and !is_apply_event?)
       = form_with model: @event, url: '/event_apps', method: :post, local: true, class: 'event-detail' do |f|
         = f.hidden_field :event_id, value: @event.id
-        = f.submit '応募する', class: 'submit'
+        = f.submit 'Reserve', class: 'submit'
 
 javascript:
   var geocoder;
@@ -73,4 +73,4 @@ javascript:
       }
     });
   }
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHNdZARvABHOXfS0uBb6n5aCFxS-JAoho&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQiYsQFCCFiA9mv3__Xqe5VkvhyiCEfds&callback=initMap" async defer></script>

@@ -10,18 +10,18 @@ describe 'ログインのシステムテスト', type: :system do
       user = FactoryBot.create(:user)
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: user.password
-      click_button 'ログイン'
+      click_button 'Login'
     end
     it 'ルートにリダイレクトされること' do
       expect(current_path).to eq(root_path)
     end
     it 'ログイン後のメニュー一覧が表示されること' do
       within '.header-nav' do
-        expect(page).to have_content 'イベント検索'
-        expect(page).to have_content '参加イベント'
-        expect(page).to have_content 'プロフィール編集'
-        expect(page).to have_content 'メッセージ'
-        expect(page).to have_content 'ログアウト'
+        expect(page).to have_content 'Tour search'
+        expect(page).to have_content 'Participating tour'
+        expect(page).to have_content 'Edit profile'
+        expect(page).to have_content 'Message'
+        expect(page).to have_content 'Logout'
       end
     end
   end
@@ -29,7 +29,7 @@ describe 'ログインのシステムテスト', type: :system do
     before do
       fill_in 'user_email', with: 'a'
       fill_in 'user_password', with: 'a'
-      click_button 'ログイン'
+      click_button 'Login'
     end
     it 'ルートにリダイレクトされないこと' do
       expect(current_path).to_not eq(root_path)

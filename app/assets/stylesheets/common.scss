@@ -3,7 +3,7 @@
 
 /*変数*/
 $link_color: #2980b9;
-$main-color: rgb(250, 133, 133);
+$main-color: rgb(240, 58, 58);
 $head-color: #d70146;
 $body-color: #f3f2ec;
 $btn-color: #d72e64;
@@ -36,15 +36,15 @@ body,p,h1,h2,h3,dl,dd,dt,ul,li{
 }
 input[type="submit"]{
   margin:0;
-  margin-top:10px;
-  margin-bottom:10px;
+  margin-top:20px;
+  margin-bottom:20px;
   margin-left:auto;
   margin-right:auto;  
   width:300px;
   line-height:35px;
   height:35px;
   font-size:16px;
-  background-color:#16A6B6;
+  background-color:#FF570D;
   border:none;
   border-radius: 5px;
   color:#fff;
@@ -178,7 +178,7 @@ body{
   }
 }
 .main{
-  padding-top:100px;
+  padding-top:80px;
   width:100%;
   margin-left:auto;
   margin-right:auto;
@@ -206,7 +206,7 @@ body{
     height:35px;
     line-height:35px;
     display:block;
-    margin-top:10px;
+    margin-top:40px;
     margin-bottom:10px;
     border-radius: 10px;
     transition: 0.3s;
@@ -347,7 +347,7 @@ form{
     text-decoration: none;
     color:#333;
     @include mq(md){
-      width:30%;
+      width:95%;
       display:block;
       float:left;
       margin:1.5%;
@@ -382,7 +382,7 @@ form{
       padding:10px;
       /*border-bottom:1px dotted #eee;*/
       color: #fff;
-      background-color:#d1ccc0;
+      background-color:#FF8856;
     }
     dd{
       padding:10px;
@@ -559,22 +559,32 @@ Componentf
   display: inline-block;
   margin-right:5px;
 }
-
+.banner{
+  margin:100px
+}
+h1 .text-red{
+  color: #FFFFFF;
+}
+.search-config-title{
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
 .search-config {
   margin-top:10px;
-  margin-bottom:20px;
+  margin-bottom:10px;
   padding:5px;
   border:1px solid #eee;
   border-radius: 5px;
   /*box-shadow: 1px 1px 2px #aaa;*/
-  background-color:#fff;
-  width:90%;
-  margin: 20px auto;
+  background-image:url("japan.jpg");
+  background-size: cover;
+  width:80%;
+  margin: 10px auto;
   @include mq(){
-    width:80%;
+    width:100%;
   }
   table{
-    width: 95%;
+    width: 60%;
     margin: 0 auto;
   }
   th,td{
@@ -669,8 +679,8 @@ Componentf
 }
 .flash-chat{
   border-radius: 3px;
-  height:30px;
-  line-height:30px;
+  height:50px;
+  line-height:50px;
   color: #fff;
   
   

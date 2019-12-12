@@ -1,5 +1,5 @@
 section.content
-  h2.page-title ログイン
+  h2.page-title Login
   br
   = form_for(:session, url: sign_in_path) do |f|
     .form_group
@@ -10,5 +10,5 @@ section.content
       = f.label 'パスワード'
       br
       = f.password_field :passwordz
-    = f.submit 'ログイン'
+    = f.submit 'Login'
   p.sign-up = link_to '新規ユーザ登録', '/users/new', class: 'btn-min'

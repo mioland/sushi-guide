@@ -1,4 +1,4 @@
-p.event-history= link_to 'ユーザ検索','/chats/select_user',{class:"btn"}
+p.event-history= link_to 'User search','/chats/select_user',{class:"btn"}
 ul.chat-user-list
   - @chat_users.each do |chat_user|
     li= link_to chat_user.relation.name , "/chats/#{chat_user.relation.id}&room=#{chat_user.room_id}" 

@@ -47,8 +47,8 @@ class Event < ApplicationRecord
     mount_uploader :photo_url4, AvatarUploader
   
     # 区分値
-    enum event_recruiting_flgs: { '募集しない' => false, '募集する' => true }
-    enum event_published_flgs: { '下書き' => false, '公開' => true }
+    enum event_recruiting_flgs: { 'Do not recruit' => false, 'Recruitment' => true }
+    enum event_published_flgs: { 'draft' => false, 'Release' => true }
   
     # クエリ
     scope :search_with_pref, ->(pref_id) { where(pref_id: pref_id) }

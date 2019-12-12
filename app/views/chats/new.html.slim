@@ -32,10 +32,10 @@
                   br
                   span.chat-content = chat.chat
       =form_with model: Chat.new, url: "/chats/#{params[:id]}" do |f|
-        =f.label 'メッセージ'
+        =f.label 'message'
         br
         =f.text_area :chat, class: 'chat'
         br
         =f.label '画像'
         =f.file_field :photo_url, id: 'file_input'
-        =f.submit '送信', id: 'chat-submit'
+        =f.submit 'Send', id: 'chat-submit'

@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe '参加イベントのシステムテスト', type: :system do
-  let(:user1) { FactoryBot.create(:user, name: 'ユーザ1') }
-  let(:user2) { FactoryBot.create(:user, name: 'ユーザ2') }
-  let(:user3) { FactoryBot.create(:user, name: 'ユーザ3') }
-  let!(:pref) { FactoryBot.create(:pref, pref_id: '1', pref_name: 'A県') }
+  let(:user1) { FactoryBot.create(:user, name: 'user1') }
+  let(:user2) { FactoryBot.create(:user, name: 'user2') }
+  let(:user3) { FactoryBot.create(:user, name: 'user3') }
+  let!(:pref) { FactoryBot.create(:pref, pref_id: '1', pref_name: 'A') }
 
   let(:event) { FactoryBot.create(:event, event_name: '参加イベントのテスト', user: user1, pref: pref) }
   let!(:event_app1) { FactoryBot.create(:event_app, event: event, user: user1) }
@@ -14,7 +14,7 @@ describe '参加イベントのシステムテスト', type: :system do
   #    visit new_user_session_path
   #    fill_in 'user_email', with: login_user.email
   #    fill_in 'user_password', with: login_user.password
-  #    click_button 'ログイン'
+  #    click_button 'Login'
   #  end
 
   describe '参加イベント一覧画面' do
@@ -22,7 +22,7 @@ describe '参加イベントのシステムテスト', type: :system do
       visit new_user_session_path
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
-      click_button 'ログイン'
+      click_button 'Login'
       visit event_apps_path
     end
 
@@ -53,7 +53,7 @@ describe '参加イベントのシステムテスト', type: :system do
       visit new_user_session_path
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
-      click_button 'ログイン'
+      click_button 'Login'
       visit event_app_path(event_app1)
     end
     context '自分が作成したイベントの場合' do

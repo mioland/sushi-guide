@@ -1,17 +1,17 @@
 .content
-  p.event-new = link_to 'イベントを新規作成', new_event_path, class: 'btn'
+  p.event-new = link_to 'Create a new tour', new_event_path, class: 'btn'
   br
   section.event-app-list
-    h2.page-title 参加イベント一覧
+    h2.page-title List of participating events
     -if @event_apps.empty?
-      p 参加予定のイベントはありません。
+      p There are no upcoming tours
     -@event_apps.each do |event_app|
       =link_to event_app_path(event_app) do
         dl.event
           dt 
             - if event_app.event.user.id == current_user.id
               p 
-                | #{event_app.event.event_name} <span class='owner'>主催</span>
+                | #{event_app.event.event_name} <span class='owner'>Guide</span>
             - else
               p = event_app.event.event_name
           dd
@@ -19,6 +19,6 @@
               p.title-img = image_tag event_app.event.photo_url1.url, class: 'img-thum'
             - else
               p.title-img = image_tag 'no-image.png', class: 'img-thum'
-            p = "開催日時: #{event_app.event.event_date.strftime('%Y年%m月%d日')}"
-            p = "主催者：　#{event_app.event.user.name}"
+            p = "date: #{event_app.event.event_date.strftime('%Y/%m/%d')}"
+            p = "Guide：　#{event_app.event.user.name}"
   br

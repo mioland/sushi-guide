@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 describe 'イベントのシステムテスト', type: :system do
-  let(:user1) { FactoryBot.create(:user, name: 'ユーザ1') }
-  let(:user2) { FactoryBot.create(:user, name: 'ユーザ2') }
-  let!(:pref) { FactoryBot.create(:pref, pref_id: '1', pref_name: 'A県') }
+  let(:user1) { FactoryBot.create(:user, name: 'user1') }
+  let(:user2) { FactoryBot.create(:user, name: 'user2') }
+  let!(:pref) { FactoryBot.create(:pref, pref_id: '1', pref_name: 'A') }
 
   before do
     visit new_user_session_path
     fill_in 'user_email', with: login_user.email
     fill_in 'user_password', with: login_user.password
-    click_button 'ログイン'
+    click_button 'Login'
   end
 
   describe 'イベント新規作成機能' do
@@ -20,13 +20,13 @@ describe 'イベントのシステムテスト', type: :system do
       fill_in 'イベント名', with: event_name
       select event_published_flg, from: 'event_event_published_flg'
       select selected_pref, from: 'event_pref_id'
-      click_button '登録する'
+      click_button 'register'
     end
 
     context '正常な入力を行った場合_公開' do
       let(:event_name) { 'テストイベント' }
       let(:event_published_flg) { '公開' }
-      let(:selected_pref) { 'A県' }
+      let(:selected_pref) { 'A' }
       it 'イベント一覧画面にリダイレクトされること' do
         expect(current_path).to eq(events_path)
       end
@@ -43,8 +43,8 @@ describe 'イベントのシステムテスト', type: :system do
     end
     context '正常な入力を行った場合_下書き' do
       let(:event_name) { 'テストイベント' }
-      let(:event_published_flg) { '下書き' }
-      let(:selected_pref) { 'A県' }
+      let(:event_published_flg) { 'draft' }
+      let(:selected_pref) { 'A' }
       it 'イベント一覧画面にリダイレクトされること' do
         expect(current_path).to eq(events_path)
       end
@@ -61,8 +61,8 @@ describe 'イベントのシステムテスト', type: :system do
     end
     context '必須項目を入力しなかった場合' do
       let(:event_name) { nil }
-      let(:event_published_flg) { '公開' }
-      let(:selected_pref) { '選択してください' }
+      let(:event_published_flg) { 'Release' }
+      let(:selected_pref) { 'Please select' }
 
       it '不正な入力のエラーメッセージが表示されいること' do
         expect(find('.flash-chat')).to have_content('不正な入力があります')
@@ -96,23 +96,23 @@ describe 'イベントのシステムテスト', type: :system do
       visit edit_event_path(event_app.event)
       fill_in 'イベント名', with: event_name
       select selected_pref, from: 'event_pref_id'
-      click_button '登録する'
+      click_button 'register'
     end
 
     context '正常な入力を行った場合' do
       let(:event_name) { 'テストイベント2' }
-      let(:selected_pref) { 'A県' }
+      let(:selected_pref) { 'A' }
       it 'イベント一覧画面にリダイレクトされないこと' do
         expect(current_path).to eq(event_path(edit_event))
       end
       it '登録成功のメッセージが表示されていること' do
-        expect(find('.flash-chat')).to have_content('保存しました')
+        expect(find('.flash-chat')).to have_content('Saved')
       end
     end
 
     context '必須項目を入力しなかった場合' do
       let(:event_name) { nil }
-      let(:selected_pref) { 'A県' }
+      let(:selected_pref) { 'A' }
 
       it '不正な入力のエラーメッセージが表示されいること' do
         expect(find('.flash-chat')).to have_content('不正な入力があります')

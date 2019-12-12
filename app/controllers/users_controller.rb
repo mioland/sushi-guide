@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[index create new edit update]
   before_action :admin_user, only: %i[index]
-  
+
   def index
     @users = User.all
   end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = '保存しました'
+      flash[:success] = 'Saved'
       redirect_to edit_user_path(@user)
     else
       render 'edit'

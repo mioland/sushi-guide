@@ -1,2 +1,2 @@
-Time::DATE_FORMATS[:ja] = "%Y年%m月%d日 %H時%M分"
+Time::DATE_FORMATS[:en] = "%Y/%m/%d %H:%M"
 Time::DATE_FORMATS[:ymd] = "%Y%m%d"

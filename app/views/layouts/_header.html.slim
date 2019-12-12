@@ -12,23 +12,23 @@
             - if !current_user.nil?
                 li = link_to events_path do
                     = icon 'fas', 'search'
-                    = ' イベント検索'
+                    = ' Tour search'
                 li = link_to event_apps_path do
                     = icon 'fas', 'list'
-                    = ' 参加イベント'
+                    = ' Participating tour'
                 li = link_to edit_user_path(current_user.id) do
                     = icon 'fas', 'user'
-                    = ' プロフィール編集'
+                    = ' Edit profile'
                 li = link_to chats_index_path do
                     = icon 'fas', 'envelope'
-                    = ' メッセージ'
+                    = ' Message'
                 li = link_to destroy_user_session_path, method: :delete do
                     = icon 'fas', 'sign-out-alt'
-                    = ' ログアウト'
+                    = ' Logout'
             - else
                 li = link_to events_path do
                     = icon 'fas', 'search'
-                    = ' イベント検索'
+                    = 'Tour search'
                 li = link_to new_user_session_path do
                     = icon 'fas', 'sign-in-alt'
-                    = ' ログイン'
+                    = ' Login'

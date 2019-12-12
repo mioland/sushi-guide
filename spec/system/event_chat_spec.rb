@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe 'イベントメッセージのシステムテスト', type: :system do
-  let(:user1) { FactoryBot.create(:user, name: 'ユーザ1') }
-  let(:user2) { FactoryBot.create(:user, name: 'ユーザ2') }
-  let(:user3) { FactoryBot.create(:user, name: 'ユーザ3') }
-  let!(:pref) { FactoryBot.create(:pref, pref_id: '1', pref_name: 'A県') }
+  let(:user1) { FactoryBot.create(:user, name: 'user1') }
+  let(:user2) { FactoryBot.create(:user, name: 'user2') }
+  let(:user3) { FactoryBot.create(:user, name: 'user3') }
+  let!(:pref) { FactoryBot.create(:pref, pref_id: '1', pref_name: 'A') }
 
   let(:event) { FactoryBot.create(:event, event_name: '参加イベントのテスト', user: user1, pref: pref) }
   let!(:event_app1) { FactoryBot.create(:event_app, event: event, user: user1) }
@@ -14,7 +14,7 @@ describe 'イベントメッセージのシステムテスト', type: :system do
   #    visit new_user_session_path
   #    fill_in 'user_email', with: login_user.email
   #    fill_in 'user_password', with: login_user.password
-  #    click_button 'ログイン'
+  #    click_button 'Login'
   #  end
 
   describe 'イベントチャット作成画面' do
@@ -22,7 +22,7 @@ describe 'イベントメッセージのシステムテスト', type: :system do
       visit new_user_session_path
       fill_in 'user_email', with: login_user.email
       fill_in 'user_password', with: login_user.password
-      click_button 'ログイン'
+      click_button 'Login'
       visit event_chats_path(event_id: event.id)
     end
 
@@ -30,7 +30,7 @@ describe 'イベントメッセージのシステムテスト', type: :system do
       let(:login_user) { user1 }
       it '送信したメッセージが表示されていること' do
         fill_in 'メッセージ', with: 'テストメッセージ'
-        click_button 'メッセージを送信'
+        click_button 'Send message'
         expect(page).to have_content('テストメッセージ')
       end
     end

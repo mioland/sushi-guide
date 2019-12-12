@@ -28,7 +28,7 @@ class StoresController < ApplicationController
     @event_app_id = event_app.event_id
 
     if @store.save
-      flash[:success] = '保存しました'
+      flash[:success] = 'Saved'
       redirect_to edit_event_app_store_path(@store.event_app_id, @store.id)
     else
       flash[:error] = '不正な入力があります'
@@ -39,7 +39,7 @@ class StoresController < ApplicationController
   def update
     @store = Store.find_by(id: params[:store][:store_id])
     if @store.update(store_params)
-      flash.now[:success] = '保存しました'
+      flash.now[:success] = 'Saved'
     else
       flash.now[:error] = '不正な入力があります'
     end

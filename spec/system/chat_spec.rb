@@ -9,7 +9,7 @@ describe 'メッセージのシステムテスト', type: :system do
     visit new_user_session_path
     fill_in 'user_email', with: login_user.email
     fill_in 'user_password', with: login_user.password
-    click_button 'ログイン'
+    click_button 'Login'
   end
 
   describe 'メッセージ送信先ユーザ検索画面' do
@@ -17,7 +17,7 @@ describe 'メッセージのシステムテスト', type: :system do
     before do
       visit chats_select_user_path
       fill_in '検索するユーザ名', with: 'ユーザ'
-      click_button '検索'
+      click_button 'search'
     end
 
     it '自分以外のユーザが検索結果に表示されること' do

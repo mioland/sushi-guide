@@ -41,12 +41,9 @@ gem 'jquery-rails'
 gem 'carrierwave','~> 1.0'
 gem 'carrierwave-data-uri'
 gem 'mini_magick'
-gem 'rails-i18n'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'kaminari', '~> 0.17.0'
 gem 'devise'
-gem 'devise-i18n'
-gem 'devise-i18n-views'
 gem 'omniauth-twitter', '~> 1.4'
 
 group :development, :test do
@@ -72,6 +69,8 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'chromedriver-helper'
   gem 'rspec-rails','~> 3.7'
   gem 'factory_bot_rails','~> 4.11'
