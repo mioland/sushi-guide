@@ -1,0 +1,76 @@
+.content
+  .content-item
+    h2.page-title = @event.event_name
+    - if @event.photo_url1?
+        p.title-img = image_tag @event.photo_url1.url, class: 'title-img-thum-l'
+    - else
+        p.title-img = image_tag 'no-image.png', class: 'img-thum-l'
+    br
+    table.event-show
+      tr
+        th date
+        td = I18n.l @event.event_date, format: :full_date
+      tr
+        th guide
+        td = link_to @event.user.nick_name, controller: 'users', action: 'show', id: @event.user
+      tr
+        th place
+        td#address = "#{@event.pref.pref_name} #{@event.city} #{@event.place_detail}"
+      tr
+        th reservation period
+        td = "#{@event.event_recruit_start_date.strftime('%Y/%m/%d')} 〜 #{@event.event_recruit_end_date.strftime('%Y/%m/%d')}"
+      tr
+        th overview
+        td = @event.event_detail
+      tr
+        th Possible number of people
+        td = @event.event_recruit_number
+      tr
+        th price($)
+        td = @event.event_entrance_fee
+      tr
+        th guide
+        td
+          - @event.event_apps.each do |event_app|
+              -if event_app.stores.present?
+                span.event-app = link_to event_app.user.nick_name, event_app_store_path(event_app, event_app.stores[0])
+              -else
+                span.event-app = event_app.user.nick_name
+
+    #map
+
+    br
+    - if current_user.nil? || (current_user.id != @event.user.id and !is_apply_event?)
+      = form_with model: @event, url: '/event_apps', method: :post, local: true, class: 'event-detail' do |f|
+        = f.hidden_field :event_id, value: @event.id
+        = f.submit 'Reserve', class: 'submit'
+
+javascript:
+  var geocoder;
+  var map;
+  function initMap() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var mapOptions = {
+      zoom: 15,
+      center: latlng
+    }
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    codeAddress();
+  }
+  function codeAddress() {
+    var address = document.getElementById('address').innerText;
+    console.log(address)
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQiYsQFCCFiA9mv3__Xqe5VkvhyiCEfds&callback=initMap" async defer></script>

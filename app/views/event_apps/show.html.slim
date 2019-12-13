@@ -1,0 +1,24 @@
+.content
+  p.back-to
+    | <a href="#{event_apps_path}"><i class="fas fa-arrow-left"></i></a>
+  .content-item
+    h2.page-title = @event_app.event.event_name
+    - if @event_app.event.photo_url1?
+        p.title-img = image_tag @event_app.event.photo_url1.url, class: 'img-thum'
+    - else
+        p.title-img = image_tag 'no-image.png', class: 'img-thum'
+    p = "date: #{@event_app.event.event_date.strftime('%Y/%m/%d')}"
+    p = "Guide：　#{@event_app.event.user.name}"
+    ul.event-app-btn-list
+      li = link_to event_chats_path(event_id: @event_app.event_id), class: 'btn-min' do
+          = icon 'fas', 'comment'
+          = 'Chat'
+      li = link_to event_app_stores_path(@event_app), class: 'btn-min' do
+          = icon 'fas', 'store'
+          = ' 出店情報'
+      - if @event_app.event.user.id == current_user.id
+        li = link_to edit_event_path(@event_app.event), class: 'btn-min' do
+          = icon 'fas', 'edit'
+          = ' イベント編集'
+      - else
+        li = link_to '応募をやめる', event_app_path(@event_app), class: 'btn-min', method: :delete, data: { confirm: '応募を取り消します' }

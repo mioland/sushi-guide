@@ -1,0 +1,23 @@
+section.content
+  h2.page-title エリアから選ぶ
+  ul.acc
+    - @areas.each do |area|
+      li.area
+        | <p>#{area.area_name}</p>
+        <ul>
+          - area.prefs.each do |pref|
+            li = link_to pref.pref_name, controller: 'events', action: 'index', pref_id: pref.id, event_date_from: Time.current.strftime('%Y-%m-%d')
+        </ul>
+section.content
+  -@events.each do |event|
+    dl.event
+      dt
+        p = event.event_name
+      dd
+        - if event.photo_url1?
+           p.title-img = image_tag event.photo_url1.url, class: 'img-thum'
+        - else
+           p.title-img = image_tag 'no-image.png', class: 'img-thum'
+        p = "date: #{event.event_date.strftime('%Y/%m/%d')}"
+        p = "guide：　#{event.user.name}"
+        p = link_to 'details', event_path(event)

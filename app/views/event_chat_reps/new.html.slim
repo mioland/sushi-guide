@@ -1,0 +1,70 @@
+.content
+  p.back-to
+    | <a href="#{event_chats_path}?event_id=#{@event_chat.event_id}"><i class="fas fa-arrow-left"></i></a>
+  .content-item
+    h2.page-title コメント
+    .chat-item
+            .table-row
+            -if @event_chat.photo_url.url
+              .chat-sender-img
+                - if @event_chat.user.avatar_path?
+                  = image_tag @event_chat.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .chat-container
+                = @event_chat.user.nick_name
+                br
+                span.chat-content
+                  =@event_chat.chat
+                  br
+                  span.chat-img = image_tag @event_chat.photo_url.url
+            -else
+              .chat-sender-img
+                - if @event_chat.user.avatar_path?
+                  = image_tag @event_chat.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .chat-container
+                = @event_chat.user.nick_name
+                br
+                span.chat-content = @event_chat.chat
+
+    hr
+    ul.chat-list
+      - @event_chat_reps.each do |event_chat_rep|
+          li.chat-item
+            .table-row
+            -if event_chat_rep.photo_url.url
+              .chat-sender-img
+                - if event_chat_rep.user.avatar_path?
+                  = image_tag event_chat_rep.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .chat-container
+                = event_chat_rep.user.nick_name
+                br
+                span.chat-content
+                  =event_chat_rep.chat
+                  br
+                  span.chat-img = image_tag event_chat_rep.photo_url.url
+            -else
+              .chat-sender-img
+                - if event_chat_rep.user.avatar_path?
+                  = image_tag event_chat_rep.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .chat-container
+                = event_chat_rep.user.nick_name
+                br
+                span.chat-content = event_chat_rep.chat
+
+    = form_with model: @event_chat_rep, local: true do |f|
+        .form-group
+          = f.hidden_field :event_chat_id, value: @event_chat_id
+          = f.label '返信を入力'
+          br
+          = f.text_area :chat, class: 'chat'
+          br
+          =f.label '画像'
+          =f.file_field :photo_url, id: 'file_input'
+        = f.submit '送信'

@@ -1,0 +1,41 @@
+.content
+  p.back-to
+    | <a href="#{chats_index_path}"><i class="fas fa-arrow-left"></i></a>
+  .content-item
+    .content
+      h2.page-title = " #{@recv_user.nick_name} "
+      ul.chat-list#chat-index
+        - @chats.each do |chat|
+          li.chat-item
+            .table-row
+              -if chat.photo_url.url
+                .chat-sender-img
+                  - if chat.sender.avatar_path?
+                    = image_tag chat.sender.avatar_path.url
+                  - else
+                    = image_tag 'no-image-human.png'
+                .chat-container
+                  = chat.sender.nick_name
+                  br
+                  span.chat-content
+                    =chat.chat
+                    br
+                    span.chat-img = image_tag chat.photo_url.url
+              - else
+                .chat-sender-img
+                  - if chat.sender.avatar_path?
+                    = image_tag chat.sender.avatar_path.url
+                  - else
+                    = image_tag 'no-image-human.png'
+                .chat-container
+                  =chat.sender.nick_name
+                  br
+                  span.chat-content = chat.chat
+      =form_with model: Chat.new, url: "/chats/#{params[:id]}" do |f|
+        =f.label 'message'
+        br
+        =f.text_area :chat, class: 'chat'
+        br
+        =f.label '画像'
+        =f.file_field :photo_url, id: 'file_input'
+        =f.submit 'Send', id: 'chat-submit'

@@ -1,0 +1,54 @@
+section.search-config
+  h1.banner
+    span.text-red SushiGuide
+      Book food tours and
+      unique experience a city
+      through wonderful food
+  h3.search-config-title Filter by area and date
+  = form_with local: true, method: :get do |f|
+      table
+        tr
+          th = f.label :Prefectures
+
+          - if @pref
+            td.select-pref = f.collection_select :pref_id, Pref.all, :id, :pref_name, prompt: 'Please select', selected: @pref.id
+          - else
+            td.select-pref = f.collection_select :pref_id, Pref.all, :id, :pref_name, prompt: 'Please select'
+        tr
+          th = f.label :date
+          td.select-date
+            |
+              #{f.date_select :event_date_from, selected: @event_date_from, use_month_numbers: true, date_separator: '/'}
+                <br>
+                <span> 〜 </span>
+                <br>
+              #{f.date_select :event_date_to, selected: @event_date_to, use_month_numbers: true, include_blank: true, date_separator: '/'}
+      = f.submit 'Search'
+
+section.event-result
+  - if @pref
+    h2.page-title = "#{@pref.pref_name}のハンドメイドイベント"
+  - else
+    h2.page-title = 'Tour list'
+  -if @events.present?
+    -@events.each do |event|
+      = link_to event_path(event) do
+        dl.event
+          dt
+            p = event.event_name
+          dd
+            .list-img
+              - if event.photo_url1?
+                p.title-img = image_tag event.photo_url1.url, class: 'img-thum'
+              - else
+                p.title-img = image_tag 'no-image.png', class: 'img-thum'
+            .list-desc
+              p = "date: #{I18n.l event.event_date, format: :full_date}"
+              p = "place: #{event.pref.pref_name}"
+              p = "guide：　#{event.user.nick_name}"
+            .detail-icon
+              = icon 'fas', 'chevron-right'
+
+  -else
+    p There's no result found.
+  = paginate @events

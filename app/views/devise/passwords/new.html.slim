@@ -1,0 +1,15 @@
+section.content
+  h2　Reset password 
+  p
+    |
+        Send “Password reset page URL” to the registered email address.<br>
+        Enter your registered email address and press [Send].<br>
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = render "devise/shared/error_messages", resource: resource
+    .form-group
+      = f.label :email
+      br
+      = f.text_field :email, autofocus: true, autocomplete: "email"
+    .actions
+      = f.submit "Send"
+  = render "devise/shared/links"

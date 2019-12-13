@@ -1,0 +1,24 @@
+.content
+  p.event-new = link_to 'Create a new tour', new_event_path, class: 'btn'
+  br
+  section.event-app-list
+    h2.page-title List of participating events
+    -if @event_apps.empty?
+      p There are no upcoming tours
+    -@event_apps.each do |event_app|
+      =link_to event_app_path(event_app) do
+        dl.event
+          dt 
+            - if event_app.event.user.id == current_user.id
+              p 
+                | #{event_app.event.event_name} <span class='owner'>Guide</span>
+            - else
+              p = event_app.event.event_name
+          dd
+            - if event_app.event.photo_url1?
+              p.title-img = image_tag event_app.event.photo_url1.url, class: 'img-thum'
+            - else
+              p.title-img = image_tag 'no-image.png', class: 'img-thum'
+            p = "date: #{event_app.event.event_date.strftime('%Y/%m/%d')}"
+            p = "Guide：　#{event_app.event.user.name}"
+  br

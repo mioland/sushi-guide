@@ -1,0 +1,51 @@
+.content
+  p.back-to
+    | <a href="#{event_app_path(@event_app)}"><i class="fas fa-arrow-left"></i></a>
+  .content-item
+    h2.page-title = "チャット　(#{@event.event_name})"
+    ul.chat-list
+      - @event_chats.each do |event_chat|
+        =link_to url_for(controller: 'event_chat_reps', action: 'new', event_chat_id: event_chat.id), class: 'chat-item-link' do
+          li.chat-item
+            .table-row
+            -if event_chat.photo_url.url
+              .chat-sender-img
+                - if event_chat.user.avatar_path?
+                  = image_tag event_chat.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .chat-container
+                = event_chat.user.nick_name
+                br
+                span.chat-content
+                  =event_chat.chat
+                  br
+                  span.chat-img = image_tag event_chat.photo_url.url
+            -else
+              .chat-sender-img
+                - if event_chat.user.avatar_path?
+                  = image_tag event_chat.user.avatar_path.url
+                - else
+                  = image_tag 'no-image-human.png'
+              .chat-container
+                = event_chat.user.nick_name
+                br
+                span.chat-content = event_chat.chat
+            - if event_chat.event_chat_reps.present?
+              .table-row
+                .chat-rep-num = ''
+                .chat-rep-num
+                  |
+                    <i class="far fa-comment"></i>
+                    #{event_chat.event_chat_reps.length}件の返信
+
+    = form_with model: @event_chat, local: true do |f|
+        .form-group
+          = f.hidden_field :event_id, value: @event_id
+          = f.label :chat
+          br
+          = f.text_area :chat, class: 'chat'
+          br
+          =f.label '画像'
+          =f.file_field :photo_url, id: 'file_input'
+        = f.submit 'Send message'
