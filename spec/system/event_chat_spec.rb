@@ -10,13 +10,6 @@ describe 'イベントメッセージのシステムテスト', type: :system do
   let!(:event_app1) { FactoryBot.create(:event_app, event: event, user: user1) }
   let!(:event_app2) { FactoryBot.create(:event_app, event: event, user: user2) }
 
-  #  before do
-  #    visit new_user_session_path
-  #    fill_in 'user_email', with: login_user.email
-  #    fill_in 'user_password', with: login_user.password
-  #    click_button 'Login'
-  #  end
-
   describe 'イベントチャット作成画面' do
     before do
       visit new_user_session_path
