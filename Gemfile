@@ -42,7 +42,7 @@ gem 'carrierwave','~> 1.0'
 gem 'carrierwave-data-uri'
 gem 'mini_magick'
 gem 'font-awesome-sass', '~> 5.4.1'
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.2.1'
 gem 'devise'
 gem 'omniauth-twitter', '~> 1.4'
 
